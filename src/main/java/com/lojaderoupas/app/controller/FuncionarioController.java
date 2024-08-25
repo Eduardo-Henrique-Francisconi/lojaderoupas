@@ -35,4 +35,19 @@ public class FuncionarioController {
         funcionarioService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+    // buscar por nome
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<List<Funcionario>> buscarFuncionarioPorNome(@PathVariable String nome) {
+        return ResponseEntity.ok(funcionarioService.buscarPorNome(nome));
+    }
+    // buscar por matricula
+    @GetMapping("/matricula/{matricula}")
+    public ResponseEntity<List<Funcionario>> buscarFuncionarioPorMatricula(@PathVariable String matricula) {
+        return ResponseEntity.ok(funcionarioService.buscarPorMatricula(matricula));
+    }
+    // buscar por idade
+    @GetMapping("/idade/{idade}")
+    public ResponseEntity<List<Funcionario>> buscarFuncionarioPorIdade(@PathVariable int idade) {
+        return ResponseEntity.ok(funcionarioService.buscarPorIdade(idade));
+    }
 }

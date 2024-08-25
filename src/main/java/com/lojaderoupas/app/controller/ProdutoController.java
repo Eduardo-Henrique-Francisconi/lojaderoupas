@@ -35,4 +35,10 @@ public class ProdutoController {
         produtoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/buscarnome/{nome}")
+    public ResponseEntity<List<Produto>> buscarProdutoPorNome(@PathVariable String nome) {
+        return ResponseEntity.ok(produtoService.buscarPorNome(nome));
+    }
+
 }

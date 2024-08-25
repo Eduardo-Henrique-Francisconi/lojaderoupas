@@ -36,4 +36,8 @@ public class ClienteService {
     public Cliente buscarPorTelefone(String telefone) {
         return clienteRepository.findByTelefone(telefone);
     }
+
+    public Cliente buscarPorIdade(int idade) {
+        return clienteRepository.findByIdade(idade);
+    }
 }

@@ -29,5 +29,9 @@ public class VendaService {
         vendaRepository.deleteById(id);
     }
 
+    //query por nome do cliente
+    public List<Venda> buscarPorNomeCliente(String nome) {
+        return vendaRepository.findByClienteNome(nome);
+    }
 
 }

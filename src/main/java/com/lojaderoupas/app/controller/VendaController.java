@@ -35,5 +35,11 @@ public class VendaController {
         vendaService.deletar(id);
         return ResponseEntity.noContent().build();
     }    
+
+    //query por nome do cliente
+    @GetMapping("/buscarcliente/{nome}")
+    public ResponseEntity<List<Venda>> buscarVendaPorNomeCliente(@PathVariable String nome) {
+        return ResponseEntity.ok(vendaService.buscarPorNomeCliente(nome));
+    }
     
 }

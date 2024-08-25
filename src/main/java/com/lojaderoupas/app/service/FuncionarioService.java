@@ -28,4 +28,19 @@ public class FuncionarioService {
     public void deletar(Long id) {
         funcionarioRepository.deleteById(id);
     }
+
+    // buscar por nome
+    public List<Funcionario> buscarPorNome(String nome) {
+        return funcionarioRepository.findByNome(nome);
+    }
+
+    // buscar por matricula
+    public List<Funcionario> buscarPorMatricula(String matricula) {
+        return funcionarioRepository.findByMatricula(matricula);
+    }
+
+    // buscar por idade
+    public List<Funcionario> buscarPorIdade(int idade) {
+        return funcionarioRepository.findByIdade(idade);
+    }
 }

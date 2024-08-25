@@ -48,4 +48,10 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.buscarPorTelefone(telefone));
     }
 
+    //find by idade
+    @GetMapping("/idade/{idade}")
+    public ResponseEntity<Cliente> buscarClientePorIdade(@PathVariable int idade) {
+        return ResponseEntity.ok(clienteService.buscarPorIdade(idade));
+    }
+
 }

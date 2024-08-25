@@ -9,6 +9,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     Cliente findByCpf(String cpf);
     Cliente findByTelefone(String telefone);
+
+    //find by idade
+    Cliente findByIdade(int idade);
+
     
 }
 
