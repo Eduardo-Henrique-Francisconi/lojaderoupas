@@ -34,4 +34,9 @@ public class VendaService {
         return vendaRepository.findByClienteNome(nome);
     }
 
+    //findyby quantidade de vendas feitas por um funcionario pelo nome somente numero de vendas
+    public List<Venda> buscarPorNomeFuncionario(String nome) {
+        return vendaRepository.findByFuncionarioNome(nome);
+    }
+
 }

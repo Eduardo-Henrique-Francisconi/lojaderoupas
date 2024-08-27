@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -14,6 +15,11 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     public Cliente salvar(Cliente cliente) {
+        // Verifica se o cliente já existe pelo CPF
+        Cliente clienteExistente = clienteRepository.findByCpf(cliente.getCpf());
+        if (clienteExistente != null) {
+            throw new IllegalArgumentException("Cliente já cadastrado");
+        }
         return clienteRepository.save(cliente);
     }
 

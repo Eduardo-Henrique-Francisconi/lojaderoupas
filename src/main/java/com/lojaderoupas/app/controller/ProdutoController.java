@@ -2,8 +2,13 @@ package com.lojaderoupas.app.controller;
 
 import com.lojaderoupas.app.entity.Produto;
 import com.lojaderoupas.app.service.ProdutoService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +21,15 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @PostMapping
-    public ResponseEntity<Produto> criarProduto(@RequestBody Produto produto) {
-        return ResponseEntity.ok(produtoService.salvar(produto));
+    public ResponseEntity<?> salvarProduto(@Valid @RequestBody Produto produto, BindingResult result) {
+        if (result.hasErrors()) {
+            // Captura a primeira mensagem de erro de validação
+            String errorMessage = result.getFieldError().getDefaultMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+        // Se não houver erros, salva o produto
+        Produto novoProduto = produtoService.salvar(produto);
+        return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
     }
 
     @GetMapping

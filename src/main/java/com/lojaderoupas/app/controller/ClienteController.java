@@ -3,8 +3,12 @@ package com.lojaderoupas.app.controller;
 import com.lojaderoupas.app.entity.Cliente;
 import com.lojaderoupas.app.service.ClienteService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +22,14 @@ public class ClienteController {
     
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@RequestBody Cliente cliente) {
-        return ResponseEntity.ok(clienteService.salvar(cliente));
+    public ResponseEntity<?> criarCliente(@Valid @RequestBody Cliente cliente, BindingResult result) {
+    if (result.hasErrors()) {
+        // Retorna a primeira mensagem de erro de validação
+        String errorMessage = result.getFieldError().getDefaultMessage();
+        return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+    Cliente novoCliente = clienteService.salvar(cliente);
+    return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
     }
 
     @GetMapping

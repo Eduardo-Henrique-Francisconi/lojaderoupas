@@ -14,6 +14,11 @@ public class FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
 
     public Funcionario salvar(Funcionario funcionario) {
+        // Verifica se o funcionário já existe pela matrícula
+        List<Funcionario> funcionarioExistente = funcionarioRepository.findByMatricula(funcionario.getMatricula());
+        if (!funcionarioExistente.isEmpty()) {
+            throw new IllegalArgumentException("Funcionário já cadastrado");
+        }
         return funcionarioRepository.save(funcionario);
     }
 

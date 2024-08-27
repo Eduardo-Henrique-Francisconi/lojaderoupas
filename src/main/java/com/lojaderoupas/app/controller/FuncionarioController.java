@@ -2,8 +2,14 @@ package com.lojaderoupas.app.controller;
 
 import com.lojaderoupas.app.entity.Funcionario;
 import com.lojaderoupas.app.service.FuncionarioService;
+
+import jakarta.validation.Valid;
+import lombok.val;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +22,15 @@ public class FuncionarioController {
     private FuncionarioService funcionarioService;
 
     @PostMapping
-    public ResponseEntity<Funcionario> criarFuncionario(@RequestBody Funcionario funcionario) {
-        return ResponseEntity.ok(funcionarioService.salvar(funcionario));
+    public ResponseEntity<?> salvarFuncionario(@Valid @RequestBody Funcionario funcionario, BindingResult result) {
+        if (result.hasErrors()) {
+            // Captura a primeira mensagem de erro de validação
+            String errorMessage = result.getFieldError().getDefaultMessage();
+            return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+        }
+        // Salva o funcionário se não houver erros
+        Funcionario novoFuncionario = funcionarioService.salvar(funcionario);
+        return new ResponseEntity<>(novoFuncionario, HttpStatus.CREATED);
     }
 
     @GetMapping

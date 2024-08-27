@@ -14,6 +14,11 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public Produto salvar(Produto produto) {
+        // Verifica se o produto já existe pelo nome
+        List<Produto> produtoExistente = produtoRepository.findByNome(produto.getNome());
+        if (!produtoExistente.isEmpty()) {
+            throw new IllegalArgumentException("Produto já cadastrado");
+        }
         return produtoRepository.save(produto);
     }
 
