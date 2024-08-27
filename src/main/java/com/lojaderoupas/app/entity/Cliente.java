@@ -2,7 +2,6 @@ package com.lojaderoupas.app.entity;
 
 import org.hibernate.validator.constraints.br.CPF;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +28,6 @@ public class Cliente {
 
     @NotBlank(message = "O CPF é obrigatório.")
     @CPF(message = "CPF inválido.")
-    @Column(unique = true)  
     private String cpf;
 
     @NotBlank(message = "O telefone é obrigatório.")
